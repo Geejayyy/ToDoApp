@@ -1,0 +1,55 @@
+<html>
+<head>
+<script type="text/javascript" src="./js/angular.min.js"></script>
+<script type="text/css" src="./css/"></script>
+</head>
+
+<body ng-app="myJJ" ng-controller="control">
+<center>
+
+<div style="font-family: ar cena; font-size: 30px;">
+<p>To Do Application</p>
+</div>
+
+<div style= "background-color: gray; width: 40%; height: 40%; font-family: calibri; border-style: groove; padding: 30px 30px 30px 40px;">
+<form ng-submit="submitlist()">
+	<input type="text" placeholder="Add Activity" size="40" ng-model="inputact">
+	<input type="submit" value="Add Activity">
+	<br>
+	<br>	
+</form>
+
+
+<div ng-repeat="x in list">
+<input type ="checkbox" ng-model="x.result">
+<span ng-bind="x.inputlist"></span>
+</div>
+
+<br>
+<br>
+
+<button ng-click="del()"> Remove Activity </button>
+</div>
+
+<script>
+var app = angular.module('myJJ', []);
+	app.controller('control', function($scope) {
+		$scope.list =  [{inputlist:'Create Assignment', result:false}];
+		
+			$scope.submitlist = function() {
+				$scope.list.push ({inputlist:$scope.inputact, result:false});
+				$scope.inputact = "";
+		};
+		
+		$scope.del = function() {
+			var trash = $scope.list;
+			$scope.list = [];
+			angular.forEach(trash, function(x) {
+				if (!x.result) $scope.list.push(x);
+			});
+		};
+	});
+</script>
+
+</body>
+</html>
